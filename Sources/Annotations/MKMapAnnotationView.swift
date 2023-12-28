@@ -51,7 +51,9 @@ class MKMapAnnotationView<Content: View>: MKAnnotationView, UpdatableAnnotationV
         guard let mapAnnotation else { return }
         guard controller == nil else { return }
 
-        let controller = NativeHostingController(rootView: mapAnnotation.content)
+        let controller = NativeHostingController(rootView: mapAnnotation.content, ignoreSafeArea: true)
+        addSubview(controller.view)
+        bounds.size = controller.preferredContentSize
         self.controller = controller
 
         if colorizeFramesForDebugging {
